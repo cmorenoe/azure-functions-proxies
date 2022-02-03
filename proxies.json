@@ -1,0 +1,30 @@
+{
+	"$schema": "http://json.schemastore.org/proxies",
+	"proxies": {
+		"proxy-1": {
+			"matchCondition": {
+				"route": "/api/customer",
+				"methods": [
+					"GET"
+				]
+			},
+			"requestOverrides": {
+				"backend.request.querystring.name": "Roger Federer"
+			},
+			"responseOverrides": {
+				"response.body": "Hi from proxy, {backend.request.querystring.name}. This response body is overriden.",
+				"response.headers.content-type": "application/json",
+				"response.headers.x-functions-key": "%FUNCTION_API_KEY%"
+			}
+		},
+		"proxy-2": {
+			"matchCondition": {
+				"route": "/api/customer/{name}",
+				"methods": [
+					"GET"
+				]
+			},
+			"backendUri": "https://localhost/api/customer?name={name}"
+		}
+	}
+}
