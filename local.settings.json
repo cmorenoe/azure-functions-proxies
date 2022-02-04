@@ -1,8 +1,9 @@
 {
-    "IsEncrypted": false,
+  "IsEncrypted": false,
   "Values": {
     "AzureWebJobsStorage": "UseDevelopmentStorage=true",
     "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "FUNCTION_API_KEY": "996519ef-aad6-49ad-ae1e-2759ed1a3d81"
+    "FUNCTION_API_KEY": "996519ef-aad6-49ad-ae1e-2759ed1a3d81",
+    "HELLO_FUNCTION_HOST": "localhost"
   }
 }

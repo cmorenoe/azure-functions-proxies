@@ -1,30 +1,43 @@
 {
 	"$schema": "http://json.schemastore.org/proxies",
 	"proxies": {
-		"proxy-1": {
+		"defaultVersion": {
 			"matchCondition": {
-				"route": "/api/customer",
+				"route": "/api/hello",
+				"methods": [
+					"GET"
+				]
+			},
+			"backendUri": "https://%HELLO_FUNCTION_HOST%/api/v1/hello"
+		},
+		"mockV2": {
+			"matchCondition": {
+				"route": "/api/v2/hello",
 				"methods": [
 					"GET"
 				]
 			},
 			"requestOverrides": {
-				"backend.request.querystring.name": "Roger Federer"
+				"backend.request.querystring.name": "John Doe"
 			},
 			"responseOverrides": {
-				"response.body": "Hi from proxy, {backend.request.querystring.name}. This response body is overriden.",
-				"response.headers.content-type": "application/json",
+				"response.body": "Hello from proxy, {backend.request.querystring.name}.",
+				"response.headers.content-type": "text/plain",
 				"response.headers.x-functions-key": "%FUNCTION_API_KEY%"
 			}
 		},
-		"proxy-2": {
+		"getNameFromPath": {
 			"matchCondition": {
-				"route": "/api/customer/{name}",
+				"route": "/api/v1/hello/{name}",
 				"methods": [
 					"GET"
 				]
 			},
-			"backendUri": "https://localhost/api/customer?name={name}"
+			"backendUri": "https://%HELLO_FUNCTION_HOST%/api/v1/hello?name={name}",
+			"responseOverrides": {
+				"response.headers.content-type": "application/json",
+				"response.headers.x-functions-key": "%FUNCTION_API_KEY%"
+			}
 		}
 	}
 }

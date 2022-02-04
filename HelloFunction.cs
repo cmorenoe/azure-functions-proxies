@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace AzureFunctions.Proxies
 {
-	public static class HelloCustomerFunction
+	public static class HelloFunction
 	{
 		[FunctionName(nameof(HelloCustomer))]
 		public static async Task<IActionResult> HelloCustomer(
-			[HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = "customer")] HttpRequest req,
+			[HttpTrigger(AuthorizationLevel.Function, "get", Route = "v1/hello")] HttpRequest req,
 			ILogger log)
 		{
 			log.LogInformation("C# HTTP trigger function processed a request.");
@@ -27,10 +27,10 @@ namespace AzureFunctions.Proxies
 			name = name ?? data?.name;
 
 			string responseMessage = string.IsNullOrEmpty(name)
-				? "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response."
-				: $"Hello, {name}. This HTTP triggered function executed successfully.";
+				? "Pass a name in the query string or in the request body for a personalized response."
+				: $"Hello, {name}.";
 
-			return new OkObjectResult(responseMessage);
+			return new OkObjectResult(new { responseMessage });
 		}
 	}
 }
